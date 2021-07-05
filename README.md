@@ -1,5 +1,5 @@
 # mojang-api
-A PHP Library for requests to the Mojang API or the Mojang Skinservers.
+A PHP Library for requests to the Mojang API or the Mojang Skinservers.  
 Official Minecraft Wiki about the API: https://minecraft.fandom.com/de/wiki/Mojang_API
 
 <br>
