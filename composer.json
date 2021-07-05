@@ -1,11 +1,15 @@
 {
-    "name": "lordrazen/mc-lib",
-    "description": "Minecraft Library",
+    "name": "lordrazen/mojang-api",
     "type": "library",
+    "description": "A PHP Library for requests to the Mojang API.",
+    "keywords": ["Minecraft","Mojang API", "Mojang"],
+    "homepage": "https://github.com/LordRazen/mojang-api",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "LordRazen",
-            "email": "razen.mailer@gmail.com"
+            "email": "razen.mailer@gmail.com",
+            "homepage": "https://minecraft-heads.com"
         }
     ],
     "minimum-stability": "dev",
@@ -16,5 +20,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "9.5"
+    },
+    "require": {
+        "lordrazen/minecraft-uuid-converter": "dev-main"
     }
 }
