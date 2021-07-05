@@ -1,19 +1,38 @@
 # mojang-api
 A PHP Library for requests to the Mojang API or the Mojang Skinservers.
+Official Minecraft Wiki about the API: https://minecraft.fandom.com/de/wiki/Mojang_API
 
-Include the MojangAPI:
-`use Minecraft\MojangAPI;`  
+<br>
 
-Get UUID from Playername
-`MojangAPI::getUuidFromName('LordRazen);`
-result: 8d0a41175a764b72a7dc67b555119fef
-`MojangAPI::getUuidFromName('ThisIsNotAPlayerName);`
-result: false
+## Installation
+`composer require lordrazen/mojang-api`
 
-MojangAPI::getValueFromUUID();
+<br>
 
-MojangAPI::validateSkinFileExists();
+## Use the MojangAPI:
+Get UUID from Playername  
+`MojangAPI::getUuidFromName('LordRazen);`  
+Result: 8d0a41175a764b72a7dc67b555119fef  
 
-MojangAPI::getSkinFile();
+Get Value from UUID  
+`MojangAPI::getValueFromUUID('8d0a41175a764b72a7dc67b555119fef');`  
+Result: ewogICJ0aW1lc3RhbXAiIDogMT...
 
-MojangAPI::getAllNamesFromUUID();
+Get All Names from UUID
+`MojangAPI::getAllNamesFromUUID('8d0a41175a764b72a7dc67b555119fef);`  
+Result: ["LordRazen"]
+
+Check if Skinfile Exists
+http://textures.minecraft.net/texture/d5c6dc2bbf51c36cfc7714585a6a5683ef2b14d47d8ff714654a893f5da622  
+`MojangAPI::validateSkinFileExists('d5c6dc2bbf51c36cfc7714585a6a5683ef2b14d47d8ff714654a893f5da622');`  
+Result: 
+
+Get Skinfile from Mojang Skin Servers
+`MojangAPI::getSkinFile('d5c6dc2bbf51c36cfc7714585a6a5683ef2b14d47d8ff714654a893f5da622');`  
+Result: GdImage
+
+<br>
+<hr>
+www.minecraft-heads.com
+
+![Minecraft Heads Banner](https://minecraft-heads.com/images/banners/minecraft-heads_halfbanner_234x60.png)
