@@ -81,19 +81,35 @@ class MojangApiTest extends TestCase
     }
 
     /**
+     * Test validateSkinFileExists()
+     *
+     * @test
+     * @dataProvider dataSetSkinFiles
+     */
+    public function testValidateSkinFileExists(array $data)
+    {
+        $result = MojangAPI::validateSkinFileExists($data['skinfileUrl']);
+        $this->assertEquals($data['isValid'], $result);
+    }
+
+    /**
      * Test getSkinFile()
      * Test validateSkinFileExists() (implizit)
      *
      * @test
      * @dataProvider dataSetSkinFiles
      */
-    public function testGetSkinFile(String $skinfileUrl, bool $expected)
+    public function testGetSkinFile(array $data)
     {
-        $result = MojangAPI::getSkinFile($skinfileUrl);
+        $result = MojangAPI::getSkinFile($data['skinfileUrl']);
 
         # Expected true -> String should be returned
-        if ($expected) {
+        if ($data['isValid']) {
             $this->assertIsResource($result);
+            $temp = dirname(__FILE__) . '/temp.png';
+            imagepng($result, $temp);
+            $this->assertEquals($data['hash'], md5_file($temp));
+            unlink($temp);
         }
         # Expected false -> Boolean false should be returned
         else {
@@ -101,23 +117,35 @@ class MojangApiTest extends TestCase
         }
     }
 
-    /**
-     * Test validateSkinFileExists()
-     *
-     * @test
-     * @dataProvider dataSetSkinFiles
-     */
-    public function testValidateSkinFileExists(String $skinfileUrl, bool $expected)
-    {
-        $result = MojangAPI::validateSkinFileExists($skinfileUrl);
-        $this->assertEquals($result, $expected);
-    }
-
     public function dataSetSkinFiles()
     {
         return [
-            ['d5c6dc2bbf51c36cfc7714585a6a5683ef2b14d47d8ff714654a893f5da622', true],
-            ['dasgibtsnicht', false]
+            [
+                [
+                    'skinfileUrl' => 'http://textures.minecraft.net/texture/d5c6dc2bbf51c36cfc7714585a6a5683ef2b14d47d8ff714654a893f5da622',
+                    'isValid' => true,
+                    'hash' => '5e89e434f05e88b0e38adc24331399ac'
+                ]
+            ],
+            [
+                [
+                    'skinfileUrl' => 'd5c6dc2bbf51c36cfc7714585a6a5683ef2b14d47d8ff714654a893f5da622',
+                    'isValid' => true,
+                    'hash' => '5e89e434f05e88b0e38adc24331399ac'
+                ]
+            ],
+            [
+                [
+                    'skinfileUrl' => 'http://textures.minecraft.net/texture/dasgibtsnicht',
+                    'isValid' => false
+                ]
+            ],
+            [
+                [
+                    'skinfileUrl' => 'dasgibtsnicht',
+                    'isValid' => false
+                ]
+            ]
         ];
     }
 

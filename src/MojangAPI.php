@@ -11,6 +11,8 @@
 
 namespace Minecraft;
 
+use Minecraft\Misc\Constants;
+
 class MojangAPI
 {
     # Mojang API and URLs
@@ -24,7 +26,7 @@ class MojangAPI
      * Get UUID from Playername
      *
      * @param String Playername
-     * @return false|String $uuid
+     * @return mixed false|String $uuid
      */
     public static function getUuidFromName(String $playername)
     {
@@ -45,7 +47,7 @@ class MojangAPI
      * Get Value from UUID
      *
      * @param String $uuid
-     * @return false|String $value
+     * @return mixed false|String $value
      */
     public static function getValueFromUUID(String $uuid)
     {
@@ -72,12 +74,15 @@ class MojangAPI
      * Tests if a Skinfile on the Mojang servers exists, based on the $skinfileUrl
      * Technically this method dont use the Mojang API, it just validates an image from the Mojang Servers.
      *
-     * @param String $skinfileUrl (partial)
+     * @param String $skinfileUrl (partial or full)
      * @return bool $result
      */
     public static function validateSkinFileExists(String $skinfile)
     {
-        $header = @get_headers(self::MOJANG_SKIN_URL . $skinfile);
+        if (!is_int(strpos($skinfile, self::MOJANG_SKIN_URL)))
+            $skinfile = self::MOJANG_SKIN_URL . $skinfile;
+
+        $header = @get_headers($skinfile);
         return (!$header || $header[0] == 'HTTP/1.1 404 Not Found')
             ? false
             : true;
@@ -87,15 +92,21 @@ class MojangAPI
      * Method fetch a Skinfile based on the skinfileUrl from the Mojang servers.
      * Technically this method dont use the Mojang API, it just fetch an image from the Mojang Servers.
      *
-     * @param String $skinfileUrl (partial)
-     * @return false|GdImage $skin
+     * @param String $skinfileUrl (partial or full)
+     * @return mixed false|GdImage $skin
      */
     public static function getSkinFile(String $url)
     {
+        # Add MOJANG_SKIN_URL base if necessary
+        if (!is_int(strpos($url, self::MOJANG_SKIN_URL)))
+            $url = self::MOJANG_SKIN_URL . $url;
+
         # Image exists
         if (self::validateSkinFileExists($url)) {
-            $skin = @file_get_contents(self::MOJANG_SKIN_URL . $url);
-            return imagecreatefromstring($skin);
+            $skinfile = imagecreatefromstring(@file_get_contents($url));
+            imagealphablending($skinfile, false);
+            imagesavealpha($skinfile, true);
+            return $skinfile;
         }
         # Image doesnt exist
         return false;
@@ -105,7 +116,7 @@ class MojangAPI
      * Get all playernames from a UUID
      *
      * @param String $uuid (Trimmed)
-     * @return false|array $playernames
+     * @return mixed false|array $playernames
      */
     public static function getAllNamesFromUUID(String $uuid)
     {
