@@ -11,8 +11,6 @@
 
 namespace Minecraft;
 
-use Minecraft\Misc\Constants;
-
 class MojangAPI
 {
     # Mojang API and URLs
@@ -28,7 +26,7 @@ class MojangAPI
      * @param String Playername
      * @return mixed false|String $uuid
      */
-    public static function getUuidFromName(String $playername)
+    public static function getUuidFromName(String $playername): mixed
     {
         $request = self::MOJANG_UUID_FROM_USERNAME . $playername . '?at=' . time();
         $response = json_decode(@file_get_contents($request), true);
@@ -49,7 +47,7 @@ class MojangAPI
      * @param String $uuid
      * @return mixed false|String $value
      */
-    public static function getValueFromUUID(String $uuid)
+    public static function getValueFromUUID(String $uuid): mixed
     {
         $request = self::MOJANG_VALUE_FROM_UUID . $uuid;
         $response = json_decode(@file_get_contents($request), true);
@@ -77,7 +75,7 @@ class MojangAPI
      * @param String $skinfileUrl (partial or full)
      * @return bool $result
      */
-    public static function validateSkinFileExists(String $skinfile)
+    public static function validateSkinFileExists(String $skinfile): bool
     {
         if (!is_int(strpos($skinfile, self::MOJANG_SKIN_URL)))
             $skinfile = self::MOJANG_SKIN_URL . $skinfile;
@@ -95,7 +93,7 @@ class MojangAPI
      * @param String $skinfileUrl (partial or full)
      * @return mixed false|GdImage $skin
      */
-    public static function getSkinFile(String $url)
+    public static function getSkinFile(String $url): mixed
     {
         # Add MOJANG_SKIN_URL base if necessary
         if (!is_int(strpos($url, self::MOJANG_SKIN_URL)))
@@ -118,7 +116,7 @@ class MojangAPI
      * @param String $uuid (Trimmed)
      * @return mixed false|array $playernames
      */
-    public static function getAllNamesFromUUID(String $uuid)
+    public static function getAllNamesFromUUID(String $uuid): mixed
     {
         $request = self::MOJANG_NAMES_FROM_UUID_PART1 . $uuid . self::MOJANG_NAMES_FROM_UUID_PART2;
         $response = json_decode(@file_get_contents($request));
