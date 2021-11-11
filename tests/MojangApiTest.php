@@ -105,7 +105,7 @@ class MojangApiTest extends TestCase
 
         # Expected true -> String should be returned
         if ($data['isValid']) {
-            $this->assertIsResource($result);
+            $this->assertInstanceOf('GdImage', $result);
             $temp = dirname(__FILE__) . '/temp.png';
             imagepng($result, $temp);
             $this->assertEquals($data['hash'], md5_file($temp));
