@@ -110,32 +110,35 @@ class MojangAPI
         return false;
     }
 
-    /**
-     * Get all playernames from a UUID
-     *
-     * @param String $uuid (Trimmed)
-     * @return mixed false|array $playernames
-     */
-    public static function getAllNamesFromUUID(String $uuid): mixed
-    {
-        $request = self::MOJANG_NAMES_FROM_UUID_PART1 . $uuid . self::MOJANG_NAMES_FROM_UUID_PART2;
-        $response = json_decode(@file_get_contents($request));
+    // /**
+    //  * Get all playernames from a UUID
+    //  * 
+    //  * MOJANG STOPPED THIS API! DEPRECATED METHOD!
+    //  * 
+    //  * @deprecated
+    //  * @param String $uuid (Trimmed)
+    //  * @return mixed false|array $playernames
+    //  */
+    // public static function getAllNamesFromUUID(String $uuid): mixed
+    // {
+    //     $request = self::MOJANG_NAMES_FROM_UUID_PART1 . $uuid . self::MOJANG_NAMES_FROM_UUID_PART2;
+    //     $response = json_decode(@file_get_contents($request));
 
-        # No response, return false
-        if ($response == NULL)
-            return false;
+    //     # No response, return false
+    //     if ($response == NULL)
+    //         return false;
 
-        # Return playernames
-        $playernames = array();
-        foreach ($response as $playername) {
-            if (empty($playername->changedToAt)) {
-                $playernames[0] = $playername->name;
-            } else {
-                # Cut of last three characters from timestamp. The timestamp is in Milliseconds, but seconds are needed
-                $playernames[substr($playername->changedToAt, 0, -3)] = $playername->name;
-            }
-        }
+    //     # Return playernames
+    //     $playernames = array();
+    //     foreach ($response as $playername) {
+    //         if (empty($playername->changedToAt)) {
+    //             $playernames[0] = $playername->name;
+    //         } else {
+    //             # Cut of last three characters from timestamp. The timestamp is in Milliseconds, but seconds are needed
+    //             $playernames[substr($playername->changedToAt, 0, -3)] = $playername->name;
+    //         }
+    //     }
 
-        return $playernames;
-    }
+    //     return $playernames;
+    // }
 }

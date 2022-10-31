@@ -149,23 +149,23 @@ class MojangApiTest extends TestCase
         ];
     }
 
-    /**
-     * Test getAllNamesFromUUID()
-     *
-     * @test
-     * @dataProvider dataSetNames
-     */
-    public function testGetAllNamesFromUUID(String $uuid, String $names)
-    {
-        $result = MojangAPI::getAllNamesFromUUID($uuid);
-        $this->assertEquals(json_encode($result), $names);
-    }
+    // /**
+    //  * Test getAllNamesFromUUID()
+    //  *
+    //  * @test
+    //  * @dataProvider dataSetNames
+    //  */
+    // public function testGetAllNamesFromUUID(String $uuid, String $names)
+    // {
+    //     $result = MojangAPI::getAllNamesFromUUID($uuid);
+    //     $this->assertEquals(json_encode($result), $names);
+    // }
 
-    public function dataSetNames()
-    {
-        return [
-            ['8d0a41175a764b72a7dc67b555119fef', '["LordRazen"]'],
-            ['dcd9538627ff49f793dabeb125058df2', '{"0":"BadLady1998","1512312932":"MissPrincess98","1586369437":"Missi98"}']
-        ];
-    }
+    // public function dataSetNames()
+    // {
+    //     return [
+    //         ['8d0a41175a764b72a7dc67b555119fef', '["LordRazen"]'],
+    //         ['dcd9538627ff49f793dabeb125058df2', '{"0":"BadLady1998","1512312932":"MissPrincess98","1586369437":"Missi98"}']
+    //     ];
+    // }
 }
