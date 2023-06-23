@@ -81,7 +81,7 @@ class MojangAPI
             $skinfile = self::MOJANG_SKIN_URL . $skinfile;
 
         $header = @get_headers($skinfile);
-        return (!$header || $header[0] == 'HTTP/1.1 404 Not Found')
+        return (!$header || str_starts_with($header[0], 'HTTP/1.1 404'))
             ? false
             : true;
     }
