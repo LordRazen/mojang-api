@@ -36,4 +36,4 @@ Result: ["LordRazen"]
 <hr>
 www.minecraft-heads.com
 
-![Minecraft Heads Banner](https://minecraft-heads.com/images/banners/minecraft-heads_halfbanner_234x60.png)
+![Minecraft Heads Banner](https://images.minecraft-heads.com/banners/minecraft-heads_halfbanner_234x60.png)
